@@ -44,10 +44,6 @@ export class VisualRoutes {
     )];
   }
 
-  getCurrentYear() {
-    return new Date().getFullYear().toString();
-  }
-
   filterProperties(data: Data | Category, filterKeys: string[]): Data | VisualData | Total {
     return filterKeys.length
       ? filterKeys.reduce((result, key) => ({ ...result, [key]: data[key] }), {})
@@ -57,5 +53,9 @@ export class VisualRoutes {
   filterYearRange(data: Data, startYear: string, endYear: string): string[] {
     return Object.keys(data)
       .filter(year => Number(year) >= Number(startYear) && Number(year) <= Number(endYear));
+  }
+
+  getCurrentYear(): string {
+    return new Date().getFullYear().toString();
   }
 }
