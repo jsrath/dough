@@ -39,13 +39,9 @@ export class VisualRoutes {
   }
 
   getAllProperties(data: Data, yearsRange: string[], category: CategoryType): string[] {
-    let uniqueProperties: string[] = [];
-    yearsRange.forEach(year => {
-      Object.keys(data[year]).forEach(month => {
-        uniqueProperties = [...new Set([...uniqueProperties, ...Object.keys(data[year][month][category])])];
-      });
-    });
-    return uniqueProperties;
+    return [...new Set(
+      yearsRange.flatMap(year => Object.keys(data[year]).flatMap(month => Object.keys(data[year][month][category])))
+    )];
   }
 
   getCurrentYear() {
