@@ -1,5 +1,5 @@
 import { Application, Request, Response } from "express";
-import { Category, Data, VisualData, Year } from "../model";
+import { Category, CategoryType, Data, Total, VisualData } from "../model";
 
 export class VisualRoutes {
 
@@ -10,34 +10,52 @@ export class VisualRoutes {
   returnRoutes(server: Application, data: Data) {
     server.get("/visual", (req, res) => this.visualGraph(req, res, data));
     server.get("/visual/:year", (req, res) => res.status(200).json(data[req.params.year]));
+    server.get("/properties", (req, res) => this.propertiesList(req, res, data));
   }
 
   visualGraph(req: Request, res: Response, data: Data): Response {
     const { startYear = this.getCurrentYear(), endYear = startYear, properties } = req.query;
-    const propertiesGroup = (properties as string).split(",");
-    const years = this.filterYearRange(data, (startYear) as string, (endYear) as string);
+    const propertiesGroup = (properties as string)?.split(",") ?? [];
+    const years = this.filterYearRange(data, startYear as string, endYear as string);
     const yearsRange = this.filterProperties(data, years) as Data;
-
     return res.status(200).json(this.filterResponse(yearsRange, propertiesGroup));
   }
 
-  filterResponse(yearsRange: Data, propertiesGroup: string[]): VisualData[] {
+  propertiesList(req: Request, res: Response, data: Data): Response {
+    const { startYear = this.getCurrentYear(), endYear = startYear, category = CategoryType.Assets } = req.query;
+    const years = this.filterYearRange(data, startYear as string, endYear as string);
+    const filteredProperties = this.getAllProperties(data, years, category as CategoryType);
+    return res.status(200).json(filteredProperties);
+  }
+
+  filterResponse(yearsRange: Data, propertiesGroup: string[], category: CategoryType = CategoryType.Assets): VisualData[] {
     return Object.keys(yearsRange)
       .flatMap((year => Object.keys(yearsRange[year])
-        .map(month => (
-          {
-            date: `${year}-${month}-01`, ...this.filterProperties(yearsRange[year][month].assets, propertiesGroup)
-          }
-        ))
+        .map(month => ({
+          date: `${year}-${month}-01`,
+          ...this.filterProperties(yearsRange[year][month][category], propertiesGroup)
+        }))
       )).sort((a, b) => Number(new Date(a.date)) - Number(new Date(b.date)));
+  }
+
+  getAllProperties(data: Data, yearsRange: string[], category: CategoryType): string[] {
+    let uniqueProperties: string[] = [];
+    yearsRange.forEach(year => {
+      Object.keys(data[year]).forEach(month => {
+        uniqueProperties = [...new Set([...uniqueProperties, ...Object.keys(data[year][month][category])])];
+      });
+    });
+    return uniqueProperties;
   }
 
   getCurrentYear() {
     return new Date().getFullYear().toString();
   }
 
-  filterProperties(data: Data | Category, filterKeys: string[]): Data | VisualData {
-    return filterKeys.reduce((result, key) => ({ ...result, [key]: data[key] }), {});
+  filterProperties(data: Data | Category, filterKeys: string[]): Data | VisualData | Total {
+    return filterKeys.length
+      ? filterKeys.reduce((result, key) => ({ ...result, [key]: data[key] }), {})
+      : { total: Math.round(Object.values(data).reduce((prev, curr) => Number(prev) + Number(curr)) as number) };
   }
 
   filterYearRange(data: Data, startYear: string, endYear: string): string[] {

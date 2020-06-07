@@ -7,16 +7,24 @@ export interface Year {
 }
 
 export interface Month {
-  assets: Category;
-  income: Category;
-  expenses: Category;
+  [category: string]: Category;
 }
 
 export interface Category {
   [property: string]: number | boolean;
 }
 
+export interface Total {
+  total: number;
+}
+
 export interface VisualData {
   date: string;
-  [property: string]: Category | string;
+  [property: string]: Category | string | number;
+}
+
+export const enum CategoryType {
+  Assets = "assets",
+  Income = "income",
+  Expenses = "expenses"
 }

@@ -12,8 +12,7 @@ export class DataService {
   }
 
   async fetchData() {
-    const params = this.properties.join(",");
-    const data: DataType[] = await d3.json(`http://localhost:4001/visual?startYear=${this.dates[0]}&endYear=${this.dates[1]}&properties=${params}`);
+    const data: DataType[] = await d3.json(`http://localhost:4001/visual?startYear=${this.dates[0]}&endYear=${this.dates[1]}&properties=${this.properties}`);
     return data;
   }
 
