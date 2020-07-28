@@ -9,7 +9,9 @@
     "prestart": "npm run build",
     "prebuild": "tslint -p tsconfig.json --fix",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "compile": "tsc && node dist/server.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"npm run compile\""
   },
   "dependencies": {
     "body-parser": "^1.19.0",

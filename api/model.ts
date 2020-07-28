@@ -23,6 +23,10 @@ export interface VisualData {
   [property: string]: Category | string | number;
 }
 
+export interface TableData {
+  [property: string]: (number | boolean)[];
+}
+
 export const enum CategoryType {
   Assets = "assets",
   Income = "income",

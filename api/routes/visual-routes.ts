@@ -1,5 +1,6 @@
 import { Application, Request, Response } from "express";
 import { Category, CategoryType, Data, Total, VisualData } from "../model";
+import * as util from "../util/util";
 
 export class VisualRoutes {
 
@@ -14,7 +15,7 @@ export class VisualRoutes {
   }
 
   visualGraph(req: Request, res: Response, data: Data): Response {
-    const { startYear = this.getCurrentYear(), endYear = startYear, properties } = req.query;
+    const { startYear = util.getCurrentYear(), endYear = startYear, properties } = req.query;
     const propertiesGroup = (properties as string)?.split(",") ?? [];
     const years = this.filterYearRange(data, startYear as string, endYear as string);
     const yearsRange = this.filterProperties(data, years) as Data;
@@ -22,7 +23,7 @@ export class VisualRoutes {
   }
 
   propertiesList(req: Request, res: Response, data: Data): Response {
-    const { startYear = this.getCurrentYear(), endYear = startYear, category = CategoryType.Assets } = req.query;
+    const { startYear = util.getCurrentYear(), endYear = startYear, category = CategoryType.Assets } = req.query;
     const years = this.filterYearRange(data, startYear as string, endYear as string);
     const filteredProperties = this.getAllProperties(data, years, category as CategoryType);
     return res.status(200).json(filteredProperties);
@@ -53,9 +54,5 @@ export class VisualRoutes {
   filterYearRange(data: Data, startYear: string, endYear: string): string[] {
     return Object.keys(data)
       .filter(year => Number(year) >= Number(startYear) && Number(year) <= Number(endYear));
-  }
-
-  getCurrentYear(): string {
-    return new Date().getFullYear().toString();
   }
 }
