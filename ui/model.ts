@@ -3,6 +3,10 @@ export interface DataType {
   [property: string]: string | number | boolean | Date;
 }
 
+export interface TableData {
+  [property: string]: number[];
+}
+
 export interface Dimensions {
   top: number;
   right: number;
