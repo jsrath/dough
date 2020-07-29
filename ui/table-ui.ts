@@ -1,34 +1,31 @@
-import { DataType, TableData } from './model';
+import { TableData } from './model';
 
 export class TableUI {
-  element = ".table";
+  tableRef = ".table";
 
   constructor(data: TableData) {
-    this.displayTable(data);
+    this.buildTable(data);
+  }
+
+  getCategoryType(category: string): string {
+    const dashIndex = category.indexOf("-");
+    return category.slice(0, dashIndex);
   }
 
   parseCategoryName(category: string): string {
     const dashIndex = category.indexOf("-") + 1;
-    const categoryNameOnly = category.slice(dashIndex, category.length);
-    const uppercaseCharacters = category.match(/[A-Z]/g)?.map(letter => category.indexOf(letter));
-    return category.slice(dashIndex, category.length);
+    const categoryName = category.slice(dashIndex, category.length).replace(/([A-Z])/g, " $1");
+    return `${categoryName.charAt(0).toUpperCase()}${categoryName.slice(1)}`;
   }
 
   buildTable(data: TableData) {
-    let table = "";
     Object.keys(data).forEach(key => {
-      let row = `<tr><td>${this.parseCategoryName(key)}</td>`;
-      data[key].forEach(one => row += `<td>${one}<td>`);
-      row += `</tr>`;
-      table += row;
+      const selector: HTMLTableElement = document.querySelector(`.${this.getCategoryType(key)} tbody`);
+      const row = selector.insertRow(-1);
+      data[key].forEach((cell, index) => row.insertCell(index).appendChild(document.createTextNode(cell.toString())));
+      const category = document.createTextNode(this.parseCategoryName(key));
+      row.insertCell(0).appendChild(category);
     });
-    return table;
-  }
-
-  displayTable(data: TableData) {
-    const selector = document.querySelector('.table');
-    const table = this.buildTable(data);
-    selector.innerHTML = table;
   }
 
 }
