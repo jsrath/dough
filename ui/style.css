@@ -29,4 +29,9 @@ th, td {
   text-align: left;
   font-weight: 300;
   padding: 5px;
+  min-width: 100px;
+}
+
+td:not(:first-of-type)  {
+  text-align: right;
 }
