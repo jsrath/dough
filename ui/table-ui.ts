@@ -25,9 +25,21 @@ export class TableUI {
       data[key].forEach((cell, index) => row.insertCell(index).appendChild(document.createTextNode(this.formatNumber(cell))));
       const category = document.createTextNode(this.parseCategoryName(key));
       row.insertCell(0).appendChild(category);
-      const headerRow: HTMLTableElement = document.querySelector(`.${this.getCategoryType(key)} thead tr th`);
-      headerRow.setAttribute("colspan", (data[key].length + 1).toString());
     });
+
+    this.setMonths();
+  }
+
+  setMonths() {
+    const numberOfMonths = document.querySelector('tbody tr').childElementCount - 1;
+    const months = this.generateMonths("short");
+    document.querySelectorAll('thead tr').forEach((headerRow: HTMLTableRowElement) => {
+      [...Array(numberOfMonths)].forEach((month, index) => headerRow.insertCell(index + 1).appendChild(document.createTextNode((months[index]).toString())));
+    });
+  }
+
+  generateMonths(format: string = "long"): string[] {
+    return [...Array(12)].map((month, index) => new Date(0, index).toLocaleDateString('en-US', { month: format }));
   }
 
   formatNumber(input: number): string {
