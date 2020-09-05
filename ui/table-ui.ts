@@ -1,7 +1,6 @@
 import { TableData } from './model';
 
 export class TableUI {
-  tableRef = ".table";
 
   constructor(data: TableData) {
     this.buildTable(data);

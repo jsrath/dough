@@ -12,6 +12,7 @@ export class VisualRoutes {
     server.get("/visual", (req, res) => this.visualGraph(req, res, data));
     server.get("/visual/:year", (req, res) => res.status(200).json(data[req.params.year]));
     server.get("/properties", (req, res) => this.propertiesList(req, res, data));
+    server.get("/years", (req, res) => this.getDataYears(res, data));
   }
 
   visualGraph(req: Request, res: Response, data: Data): Response {
@@ -54,5 +55,10 @@ export class VisualRoutes {
   filterYearRange(data: Data, startYear: string, endYear: string): string[] {
     return Object.keys(data)
       .filter(year => Number(year) >= Number(startYear) && Number(year) <= Number(endYear));
+  }
+
+  getDataYears(res: Response, data: Data): Response<string[]> {
+    const years = Object.keys(data)
+    return res.status(200).json(years);
   }
 }
