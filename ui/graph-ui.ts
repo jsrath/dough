@@ -21,6 +21,7 @@ export class GraphUI {
 
   initializeSvg() {
     const baseClass = this.config.getBaseClass();
+    d3.select(`${baseClass} > svg`).remove();
     this.svg = d3.select(baseClass).append("svg");
     this.setGraphDimensions();
     this.drawGraph(this.data, this.categoryCount);

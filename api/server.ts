@@ -57,4 +57,4 @@ class DataServer {
   }
 }
 
-const app = new DataServer();
+new DataServer();

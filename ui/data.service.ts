@@ -10,8 +10,8 @@ export class DataService {
   baseEndpoint: string;
 
   constructor(dates?: string[], properties?: string[]) {
-    this.dates = dates;
-    this.properties = properties;
+    this.dates = dates ?? this.setDefaultDates();
+    this.properties = properties ?? this.setDefaultProperties();
     this.enpointConfigService = new EndpointConfigService();
     this.baseEndpoint = this.enpointConfigService.getBaseEndpoint(true);
   }
@@ -33,6 +33,15 @@ export class DataService {
     const response = await fetch(url);
     const json = await response.json();
     return json;
+  }
+
+  setDefaultDates(): string[] {
+    const currentYear = new Date().getFullYear().toString();
+    return ["2013", currentYear];
+  }
+
+  setDefaultProperties(): string[] {
+    return ["ocbc", "bangkok", "realEstate"]
   }
 
 }

@@ -58,7 +58,7 @@ export class VisualRoutes {
   }
 
   getDataYears(res: Response, data: Data): Response<string[]> {
-    const years = Object.keys(data)
+    const years = Object.keys(data);
     return res.status(200).json(years);
   }
 }

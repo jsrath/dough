@@ -16,6 +16,11 @@ export interface Dimensions {
   baseHeight: number;
 }
 
+export enum YearType {
+  Start = "start", 
+  End = "end"
+}
+
 export type SelectionElement = d3.Selection<SVGGraphicsElement, {}, HTMLElement, any>;
 export type TimeScale = d3.ScaleTime<number, number>;
 export type LinearScale = d3.ScaleLinear<number, number>;
