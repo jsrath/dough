@@ -44,12 +44,15 @@ td:first-child, th:first-child {
 
 .graph-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 0.8rem;
 }
+
 .graph-options-properties fieldset {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+}
+
+.graph-options-years {
+  margin: 10px 0;
 }

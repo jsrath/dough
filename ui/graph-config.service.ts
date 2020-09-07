@@ -1,7 +1,7 @@
 import { Dimensions } from "./model";
 
 export class GraphConfigService {
-  dimensions: Dimensions = { top: 20, right: 20, bottom: 30, left: 50, baseWidth: 960, baseHeight: 500 };
+  dimensions: Dimensions = { top: 20, right: 20, bottom: 30, left: 60, baseWidth: 960, baseHeight: 750 };
 
   getBaseClass(): string {
     return ".graph";
