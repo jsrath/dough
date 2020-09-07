@@ -8,10 +8,11 @@ export class DataService {
   properties: string[];
   enpointConfigService: EndpointConfigService;
   baseEndpoint: string;
+  currentYear = new Date().getFullYear().toString();
 
   constructor(dates?: string[], properties?: string[]) {
     this.dates = dates ?? this.setDefaultDates();
-    this.properties = properties ?? this.setDefaultProperties();
+    this.properties = properties;
     this.enpointConfigService = new EndpointConfigService();
     this.baseEndpoint = this.enpointConfigService.getBaseEndpoint(true);
   }
@@ -22,26 +23,26 @@ export class DataService {
   }
 
   async fetchTableData() {
-    const url = `${this.baseEndpoint}/table?year=2020`;
-    const response = await fetch(url);
-    const json = await response.json();
-    return json;
+    return await this.fetchData(`table?year=${this.currentYear}`);
   }
 
   async fetchDataYears() {
-    const url = `${this.baseEndpoint}/years`;
-    const response = await fetch(url);
-    const json = await response.json();
-    return json;
+    return await this.fetchData("years");
   }
 
   setDefaultDates(): string[] {
-    const currentYear = new Date().getFullYear().toString();
-    return ["2013", currentYear];
+    return ["2013", this.currentYear];
   }
 
-  setDefaultProperties(): string[] {
-    return ["ocbc", "bangkok", "realEstate"]
+  async fetchProperties() {
+    return await this.fetchData("properties");
+  }
+
+  async fetchData(endpoint: string) {
+    const url = `${this.baseEndpoint}/${endpoint}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    return json;
   }
 
 }

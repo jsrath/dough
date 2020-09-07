@@ -41,3 +41,15 @@ td:first-child, th:first-child {
   font-weight: 600;
   border-right: 2px solid #8a97a0;;
 }
+
+.graph-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+}
+.graph-options-properties fieldset {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}

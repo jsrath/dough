@@ -21,7 +21,6 @@ export class Routes {
         });
       });
     });
-    return data;
   }
 
   sumValues(input: Category): number {

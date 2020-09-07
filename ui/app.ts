@@ -18,14 +18,22 @@ class DataGraph {
     const properties = process.env.PROPERTIES.split(",");
     this.dataService = new DataService(years, properties);
     this.graphUI = new GraphUI(await this.dataService.fetchVisualData(), properties.length + 1);
-    this.graphOptions = new GraphOptionsUI(await this.dataService.fetchDataYears(), this.dataService.dates);
+    this.graphOptions = new GraphOptionsUI(await this.dataService.fetchDataYears(), this.dataService.dates, await this.dataService.fetchProperties());
     new TableUI(await this.dataService.fetchTableData());
     this.initializeListeners();
+    this.initalizeCheckboxes(properties);
   }
 
   initializeListeners() {
-    document.querySelectorAll(".graph-options select")
+    document.querySelectorAll(".graph-options-years select")
       .forEach(element => element.addEventListener("change", () => this.onYearSelect(event)));
+
+    document.querySelectorAll(".graph-options-properties input")
+      .forEach(element => element.addEventListener("input", () => this.onPropertySelect(event)));
+  }
+
+  initalizeCheckboxes(properties: string[]) {
+    properties.forEach(property => (document.getElementById(property) as HTMLInputElement).checked = true);
   }
 
   async onYearSelect(event: Event) {
@@ -38,6 +46,21 @@ class DataGraph {
 
     this.graphUI.data = await this.dataService.fetchVisualData();
     this.graphUI.initializeSvg();
+  }
+
+  async onPropertySelect(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const name = target.name;
+    this.dataService.properties = this.addOrRemoveProperties(this.dataService.properties, name);
+    this.graphUI.categoryCount = this.dataService.properties.length + 1;
+    this.graphUI.data = await this.dataService.fetchVisualData();
+    this.graphUI.initializeSvg();
+  }
+
+  addOrRemoveProperties(existingProperties: string[], newProperty: string): string[] {
+    return existingProperties.includes(newProperty)
+      ? existingProperties.filter(property => property !== newProperty)
+      : [...existingProperties, newProperty];
   }
 
   setGraphStartYear(value: string) {
