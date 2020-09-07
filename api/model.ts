@@ -27,8 +27,12 @@ export interface TableData {
   [property: string]: (number | boolean)[];
 }
 
-export const enum CategoryType {
+export enum CategoryType {
   Assets = "assets",
   Income = "income",
   Expenses = "expenses"
+}
+
+export const enum CategoryProperty {
+  Total = "total"
 }
