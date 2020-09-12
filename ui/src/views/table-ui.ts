@@ -1,4 +1,5 @@
-import { TableData } from './model';
+import { TableData } from '../models/model';
+import { parseCategoryName } from '../util/util';
 
 export class TableUI {
 
@@ -11,18 +12,12 @@ export class TableUI {
     return category.slice(0, dashIndex);
   }
 
-  parseCategoryName(category: string): string {
-    const dashIndex = category.indexOf("-") + 1;
-    const categoryName = category.slice(dashIndex, category.length).replace(/([A-Z])/g, " $1");
-    return `${categoryName.charAt(0).toUpperCase()}${categoryName.slice(1)}`;
-  }
-
   buildTable(data: TableData) {
     Object.keys(data).forEach(key => {
       const selector: HTMLTableElement = document.querySelector(`.${this.getCategoryType(key)} tbody`);
       const row = selector.insertRow(-1);
       data[key].forEach((cell, index) => row.insertCell(index).appendChild(document.createTextNode(this.formatNumber(cell))));
-      const category = document.createTextNode(this.parseCategoryName(key));
+      const category = document.createTextNode(parseCategoryName(key));
       row.insertCell(0).appendChild(category);
     });
 

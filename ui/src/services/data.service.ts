@@ -1,4 +1,4 @@
-import { DataType } from "./model";
+import { DataType } from "../models/model";
 import * as d3 from "d3";
 import "regenerator-runtime/runtime";
 import { EndpointConfigService } from "./endpoint-config.service";

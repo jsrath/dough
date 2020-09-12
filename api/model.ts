@@ -24,7 +24,7 @@ export interface VisualData {
 }
 
 export interface TableData {
-  [property: string]: (number | boolean)[];
+  [property: string]: Array<number | boolean>;
 }
 
 export enum CategoryType {

@@ -1,3 +1,5 @@
+import { parseCategoryName } from "../util/util";
+
 export class GraphOptionsUI {
   years: string[];
   yearsSelector = ".graph-options-years select";
@@ -33,7 +35,7 @@ export class GraphOptionsUI {
       const labelElement: HTMLLabelElement = document.createElement("label");
       const containerElement: HTMLDivElement = document.createElement("div");
       labelElement.htmlFor = property;
-      labelElement.innerText = property;
+      labelElement.innerText = parseCategoryName(property);
       inputElement.type = "checkbox";
       inputElement.name = property;
       inputElement.id = property;

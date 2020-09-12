@@ -1,9 +1,9 @@
-import { GraphConfigService } from "./graph-config.service";
-import { DataService } from "./data.service";
-import { GraphUI } from "./graph-ui";
-import { GraphOptionsUI } from "./graph-options-ui";
-import { TableUI } from "./table-ui";
-import { YearType } from "./model";
+import { GraphConfigService } from "./services/graph-config.service";
+import { DataService } from "./services/data.service";
+import { GraphUI } from "./views/graph-ui";
+import { GraphOptionsUI } from "./views/graph-options-ui";
+import { TableUI } from "./views/table-ui";
+import { YearType } from "./models/model";
 
 class DataGraph {
   graphConfig = new GraphConfigService();

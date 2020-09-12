@@ -1,0 +1,100 @@
+:root {
+  --dark-background: #f2f3f5;
+  --light-background: #fff;
+  --dark-text-color: #384047;
+  --light-text-color: #fff;
+  --component-border-radius: 5px;
+  --component-padding: 20px;
+  --component-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  --component-border: 1px solid #8a97a0;
+}
+
+body {
+  background-color: var(--dark-background);
+  font-family: sans-serif;
+}
+
+.line {
+  stroke-width: 2px;
+  fill: none;
+}
+
+table {
+  margin: 20px 0;
+  font-family: sans-serif;
+  font-size: 0.9rem;
+  color: var(--dark-text-color);
+  border: var(--component-border);
+  border-collapse: collapse;
+}
+
+thead th,
+thead td,
+thead tr {
+  font-weight: 400;
+  background: #8a97a0;
+  color: var(--light-text-color);
+}
+
+tr {
+  background: var(--light-background);
+}
+
+tr:nth-child(even) {
+  background: var(--dark-background);
+}
+
+th,
+td {
+  text-align: left;
+  font-weight: 300;
+  padding: 4px 10px;
+  min-width: 100px;
+}
+
+td:not(:first-of-type),
+thead td:first-of-type {
+  text-align: right;
+}
+
+td:first-child,
+th:first-child {
+  font-weight: 600;
+  border-right: var(--component-border);
+}
+
+.graph-container {
+  display: flex;
+  font-size: 0.8rem;
+  padding: var(--component-padding);
+  margin: 20px;
+  border-radius: var(--component-border-radius);
+}
+
+.graph-container,
+.table-container {
+  background-color: var(--light-background);
+  box-shadow: var(--component-box-shadow);
+  border-radius: var(--component-border-radius);
+  padding: var(--component-padding);
+  margin: 10px;
+}
+
+.graph-options-properties fieldset,
+.graph-options-years fieldset {
+  border: var(--component-border);
+  border-width: 1.5px;
+  border-radius: var(--component-border-radius);
+  margin: 10px 0;
+}
+
+.graph-options-properties fieldset {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+tr:last-of-type {
+  border-top: var(--component-border);
+  border-bottom: var(--component-border);
+}

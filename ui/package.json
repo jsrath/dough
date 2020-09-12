@@ -2,9 +2,9 @@
   "name": "financials-ui",
   "version": "1.0.0",
   "description": "UI for the Financials App",
-  "main": "index.html",
+  "main": "src/index.html",
   "scripts": {
-    "start": "npm run build --noEmit --watch & npm run compile index.html",
+    "start": "npm run build --noEmit --watch & npm run compile src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "compile": "parcel"
