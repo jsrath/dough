@@ -1,4 +1,5 @@
 import { parseCategoryName } from "../util/util";
+import { Attributes, DomElements, HTMLElement } from "../models/model";
 
 export class GraphOptionsUI {
   years: string[];
@@ -19,9 +20,9 @@ export class GraphOptionsUI {
     const selectElements = [...document.querySelectorAll(`${this.yearsSelector}`)] as HTMLSelectElement[];
     selectElements.forEach((selectElement: HTMLSelectElement, index) => {
       years.forEach(year => {
-        const option = document.createElement("option");
-        option.text = year;
-        option.value = year;
+        const optionProperties = { text: year, value: year };
+        const option = document.createElement(DomElements.Option);
+        this.addAttributesToElement(option, optionProperties);
         selectElement.add(option);
       });
       selectElement.value = this.dates[index];
@@ -31,17 +32,29 @@ export class GraphOptionsUI {
   populatePropertyOptions(properties: string[]) {
     const parentElement: HTMLDivElement = document.querySelector(`${this.propertiesSelector} fieldset`);
     properties.forEach(property => {
-      const inputElement: HTMLInputElement = document.createElement("input");
-      const labelElement: HTMLLabelElement = document.createElement("label");
-      const containerElement: HTMLDivElement = document.createElement("div");
-      labelElement.htmlFor = property;
-      labelElement.innerText = parseCategoryName(property);
-      inputElement.type = "checkbox";
-      inputElement.name = property;
-      inputElement.id = property;
+      const inputElement: HTMLInputElement = document.createElement(DomElements.Input);
+      const labelElement: HTMLLabelElement = document.createElement(DomElements.Label);
+      const containerElement: HTMLDivElement = document.createElement(DomElements.Div);
+      const labelProperties = {
+        htmlFor: property,
+        innerText: parseCategoryName(property)
+      };
+      const inputProperties = {
+        type: DomElements.Checkbox,
+        name: property,
+        id: property,
+      };
+
+      this.addAttributesToElement(labelElement, labelProperties);
+      this.addAttributesToElement(inputElement, inputProperties);
       containerElement.append(inputElement, labelElement);
       parentElement.appendChild(containerElement);
     });
+  }
+
+  addAttributesToElement(element: HTMLElement, attributes: Attributes): HTMLElement {
+    Object.keys(attributes).forEach((attribute: keyof Attributes) => element[attribute] = attributes[attribute]);
+    return element;
   }
 
 }

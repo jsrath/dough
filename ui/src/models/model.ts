@@ -21,7 +21,20 @@ export enum YearType {
   End = "end"
 }
 
+export enum DomElements {
+  Checkbox = "checkbox",
+  Option = "option",
+  Input = "input",
+  Label = "label",
+  Div = "div"
+}
+
 export type SelectionElement = d3.Selection<SVGGraphicsElement, {}, HTMLElement, any>;
 export type TimeScale = d3.ScaleTime<number, number>;
 export type LinearScale = d3.ScaleLinear<number, number>;
 export type LinePath = d3.Line<DataType>
+export type LabelAttributes = Pick<HTMLLabelElement, "htmlFor" | "innerText">;
+export type InputAttributes = Pick<HTMLInputElement, "type" | "name" | "id">;
+export type OptionAttributes = Pick<HTMLOptionElement, "text" | "value">;
+export type Attributes = LabelAttributes | InputAttributes | OptionAttributes;
+export type HTMLElement = HTMLInputElement | HTMLLabelElement | HTMLOptionElement;
