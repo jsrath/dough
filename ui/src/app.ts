@@ -24,7 +24,7 @@ class DataGraph {
     this.initalizeCheckboxes(properties);
   }
 
-  initializeListeners() {
+  private initializeListeners() {
     document.querySelectorAll(".graph-options-years select")
       .forEach(element => element.addEventListener("change", () => this.onYearSelect(event)));
 
@@ -32,7 +32,7 @@ class DataGraph {
       .forEach(element => element.addEventListener("input", () => this.onPropertySelect(event)));
   }
 
-  initalizeCheckboxes(properties: string[]) {
+  private initalizeCheckboxes(properties: string[]) {
     properties.forEach(property => (document.getElementById(property) as HTMLInputElement).checked = true);
   }
 
@@ -57,25 +57,23 @@ class DataGraph {
     this.graphUI.initializeSvg();
   }
 
-  addOrRemoveProperties(existingProperties: string[], newProperty: string): string[] {
+  private addOrRemoveProperties(existingProperties: string[], newProperty: string): string[] {
     return existingProperties.includes(newProperty)
       ? existingProperties.filter(property => property !== newProperty)
       : [...existingProperties, newProperty];
   }
 
-  setGraphStartYear(value: string) {
+  private setGraphStartYear(value: string) {
     if (Number(value) > Number(this.dataService.dates[1])) {
       return;
     }
-
     this.dataService.dates[0] = value;
   }
 
-  setGraphEndYear(value: string) {
+  private setGraphEndYear(value: string) {
     if (Number(value) < Number(this.dataService.dates[0])) {
       return;
     }
-
     this.dataService.dates[1] = value;
   }
 

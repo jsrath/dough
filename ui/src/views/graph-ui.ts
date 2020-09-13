@@ -1,5 +1,5 @@
-import { DataType, LinearScale, LinePath, SelectionElement, TimeScale } from "../models/model"
-import { GraphConfigService } from "../services/graph-config.service"
+import { DataType, LinearScale, LinePath, SelectionElement, TimeScale } from "../models/model";
+import { GraphConfigService } from "../services/graph-config.service";
 import * as d3 from "d3";
 
 export class GraphUI {
@@ -27,40 +27,40 @@ export class GraphUI {
     this.drawGraph(this.data, this.categoryCount);
   }
 
-  setGraphDimensions() {
+  private setGraphDimensions() {
     this.height = this.config.getHeight();
     this.width = this.config.getWidth();
     this.offset = this.config.getOffset();
   }
 
-  drawCanvas(element: SelectionElement): SelectionElement {
+  private drawCanvas(element: SelectionElement): SelectionElement {
     return element.attr("width", this.config.getWidthPlusMargins())
       .attr("height", this.config.getHeightPlusMargins())
       .append("g")
       .attr("transform", `translate(${this.offset})`);
   }
 
-  setDomains(x: TimeScale, y: LinearScale, data: DataType[], categoryCount: number) {
+  private setDomains(x: TimeScale, y: LinearScale, data: DataType[], categoryCount: number) {
     x.domain(d3.extent(data, (d: DataType) => +this.parseTime(d.date as string)));
     y.domain([0, d3.max(data, (d: DataType) => this.getMaximum(d, categoryCount))]);
   }
 
-  getMaximum(d: DataType, categoryCount: number): number {
-    return Math.max(...Object.values(d).slice(1, categoryCount).map(item => Number(item)))
+  private getMaximum(d: DataType, categoryCount: number): number {
+    return Math.max(...Object.values(d).slice(1, categoryCount).map(item => Number(item)));
   }
 
-  setLineData(x: TimeScale, y: LinearScale, property: string): LinePath {
+  private setLineData(x: TimeScale, y: LinearScale, property: string): LinePath {
     return d3.line<DataType>()
       .curve(d3.curveCatmullRom)
       .x(d => x(this.parseTime(d.date as string)))
       .y(d => y(Number(d[property])));
   }
 
-  extractProperties(data: DataType[], categoryCount: number): string[] {
+  private extractProperties(data: DataType[], categoryCount: number): string[] {
     return Object.keys(data[0]).slice(1, categoryCount);
   }
 
-  setAxes(x: TimeScale, y: LinearScale) {
+  private setAxes(x: TimeScale, y: LinearScale) {
     this.svg.append("g")
       .attr("transform", `translate(0, ${this.height})`)
       .call(d3.axisBottom(x));
@@ -69,7 +69,7 @@ export class GraphUI {
       .call(d3.axisLeft(y));
   }
 
-  drawGraph(data: DataType[], categoryCount: number) {
+  private drawGraph(data: DataType[], categoryCount: number) {
     const x = d3.scaleTime().range([0, this.width]);
     const y = d3.scaleLinear().range([this.height, 0]);
     const properties = this.extractProperties(data, categoryCount);
@@ -81,8 +81,8 @@ export class GraphUI {
         .data([data])
         .attr("class", "line")
         .attr("d", this.setLineData(x, y, property))
-        .style("stroke", d3.schemeTableau10[index])
-    })
+        .style("stroke", d3.schemeTableau10[index]);
+    });
 
     this.setAxes(x, y);
   };

@@ -1,9 +1,9 @@
 import bodyParser from "body-parser";
 import { config as dotEnvConfig } from "dotenv";
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { ConfigService } from "./config-service";
 import { DataService } from "./data-service";
-import { Data, Month, Year } from "./model";
+import { Data } from "./model";
 import { Routes } from "./routes";
 
 class DataServer {
@@ -17,21 +17,21 @@ class DataServer {
     this.initializeServer();
   }
 
-  initializeEnvironment() {
+  private initializeEnvironment() {
     dotEnvConfig();
     const { PORT, SOURCE } = process.env;
     this.port = Number(PORT);
     this.data = this.initializeData(SOURCE);
   }
 
-  initializeData(source: string): Data {
+  private initializeData(source: string): Data {
     return this.config.useLocalData()
       ? this.dataService.fromLocalFile(source)
       : this.dataService.fromApi(source);
   }
 
-  configureExpress() {
-    this.server.use((req, res, next) => {
+  private configureExpress() {
+    this.server.use((req: Request, res: Response, next: NextFunction) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
       next();
@@ -41,15 +41,15 @@ class DataServer {
     this.server.use(bodyParser.json());
   }
 
-  startServer() {
+  private startServer() {
     this.server.listen(this.port, () => console.log(`Server is running on ${this.port}`));
   }
 
-  configureRoutes(): Routes {
+  private configureRoutes(): Routes {
     return new Routes(this.server, this.data);
   }
 
-  initializeServer() {
+  private initializeServer() {
     this.initializeEnvironment();
     this.configureExpress();
     this.configureRoutes();

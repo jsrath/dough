@@ -37,4 +37,4 @@ export type LabelAttributes = Pick<HTMLLabelElement, "htmlFor" | "innerText">;
 export type InputAttributes = Pick<HTMLInputElement, "type" | "name" | "id">;
 export type OptionAttributes = Pick<HTMLOptionElement, "text" | "value">;
 export type Attributes = LabelAttributes | InputAttributes | OptionAttributes;
-export type HTMLElement = HTMLInputElement | HTMLLabelElement | HTMLOptionElement;
+export type DOMElement = HTMLInputElement | HTMLLabelElement | HTMLOptionElement;

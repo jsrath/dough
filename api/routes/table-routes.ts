@@ -7,11 +7,11 @@ export class TableRoutes {
     this.returnRoutes(server, data);
   }
 
-  returnRoutes(server: Application, data: Data) {
+  private returnRoutes(server: Application, data: Data) {
     server.get("/table", (req, res) => this.generateTable(req, res, data));
   }
 
-  generateTable(req: Request, res: Response, data: Data) {
+  private generateTable(req: Request, res: Response, data: Data) {
     const { year = util.getCurrentYear() } = req.query;
     const currentYear = data[year as string];
     const months = Object.keys(currentYear);
@@ -23,7 +23,7 @@ export class TableRoutes {
     return res.status(200).json(filtered);
   }
 
-  formatDataByCategory(currentYear: Year, months: string[], categories: string[]): TableData {
+  private formatDataByCategory(currentYear: Year, months: string[], categories: string[]): TableData {
     const allCategories: TableData = {};
     months.forEach(month => {
       categories.map(category => {
@@ -38,7 +38,7 @@ export class TableRoutes {
     return allCategories;
   }
 
-  filterCategories(data: TableData): TableData {
+  private filterCategories(data: TableData): TableData {
     return Object.keys(data)
       .filter(key => data[key].some(Boolean))
       .reduce((previousResult, key) => ({ ...previousResult, [key]: data[key] }), {});

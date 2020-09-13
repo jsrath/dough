@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { Data, Month, Year } from "./model";
+import { Data } from "./model";
 
 export class DataService {
 

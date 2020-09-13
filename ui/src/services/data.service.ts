@@ -7,8 +7,8 @@ export class DataService {
   dates: string[];
   properties: string[];
   enpointConfigService: EndpointConfigService;
-  baseEndpoint: string;
-  currentYear = new Date().getFullYear().toString();
+  private baseEndpoint: string;
+  private currentYear = new Date().getFullYear().toString();
 
   constructor(dates?: string[], properties?: string[]) {
     this.dates = dates ?? this.setDefaultDates();
@@ -30,7 +30,7 @@ export class DataService {
     return await this.fetchData("years");
   }
 
-  setDefaultDates(): string[] {
+ private setDefaultDates(): string[] {
     return ["2013", this.currentYear];
   }
 

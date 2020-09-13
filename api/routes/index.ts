@@ -10,7 +10,7 @@ export class Routes {
     this.getRoutes(server, data);
   }
 
-  calculateTotals(data: Data) {
+  private calculateTotals(data: Data) {
     const years = Object.keys(data);
     years.forEach(year => {
       const months = Object.keys(data[year]);
@@ -23,11 +23,11 @@ export class Routes {
     });
   }
 
-  sumValues(input: Category): number {
+  private sumValues(input: Category): number {
     return Object.values(input).reduce((a, b) => Number(a) + Number(b)) as number;
   }
 
-  getRoutes(server: Application, data: Data) {
+  private getRoutes(server: Application, data: Data) {
     const routes = [
       TableRoutes,
       VisualRoutes

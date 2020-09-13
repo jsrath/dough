@@ -1,5 +1,5 @@
 import { parseCategoryName } from "../util/util";
-import { Attributes, DomElements, HTMLElement } from "../models/model";
+import { Attributes, DomElements, DOMElement } from "../models/model";
 
 export class GraphOptionsUI {
   years: string[];
@@ -16,7 +16,7 @@ export class GraphOptionsUI {
     this.populatePropertyOptions(this.properties);
   }
 
-  populateYearOptions(years: string[]) {
+  private populateYearOptions(years: string[]) {
     const selectElements = [...document.querySelectorAll(`${this.yearsSelector}`)] as HTMLSelectElement[];
     selectElements.forEach((selectElement: HTMLSelectElement, index) => {
       years.forEach((year: string) => {
@@ -29,7 +29,7 @@ export class GraphOptionsUI {
     });
   }
 
-  populatePropertyOptions(properties: string[]) {
+  private populatePropertyOptions(properties: string[]) {
     const parentElement: HTMLDivElement = document.querySelector(`${this.propertiesSelector} fieldset`);
     properties.forEach((property: string) => {
       const inputElement: HTMLInputElement = document.createElement(DomElements.Input);
@@ -52,7 +52,7 @@ export class GraphOptionsUI {
     });
   }
 
-  addAttributesToElement(element: HTMLElement, attributes: Attributes): HTMLElement {
+  private addAttributesToElement(element: DOMElement, attributes: Attributes): DOMElement {
     Object.keys(attributes).forEach((attribute: keyof Attributes) => element[attribute] = attributes[attribute]);
     return element;
   }
