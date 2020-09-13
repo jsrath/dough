@@ -19,7 +19,7 @@ export class GraphOptionsUI {
   populateYearOptions(years: string[]) {
     const selectElements = [...document.querySelectorAll(`${this.yearsSelector}`)] as HTMLSelectElement[];
     selectElements.forEach((selectElement: HTMLSelectElement, index) => {
-      years.forEach(year => {
+      years.forEach((year: string) => {
         const optionProperties = { text: year, value: year };
         const option = document.createElement(DomElements.Option);
         this.addAttributesToElement(option, optionProperties);
@@ -31,7 +31,7 @@ export class GraphOptionsUI {
 
   populatePropertyOptions(properties: string[]) {
     const parentElement: HTMLDivElement = document.querySelector(`${this.propertiesSelector} fieldset`);
-    properties.forEach(property => {
+    properties.forEach((property: string) => {
       const inputElement: HTMLInputElement = document.createElement(DomElements.Input);
       const labelElement: HTMLLabelElement = document.createElement(DomElements.Label);
       const containerElement: HTMLDivElement = document.createElement(DomElements.Div);

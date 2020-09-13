@@ -1,16 +1,18 @@
 :root {
-  --dark-background: #f2f3f5;
   --light-background: #fff;
+  --medium-background: #f2f3f5;
+  --dark-background: #8a97a0;
   --dark-text-color: #384047;
   --light-text-color: #fff;
   --component-border-radius: 5px;
   --component-padding: 20px;
   --component-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
   --component-border: 1px solid #8a97a0;
+  --bold-font: 600;
 }
 
 body {
-  background-color: var(--dark-background);
+  background-color: var(--medium-background);
   font-family: sans-serif;
 }
 
@@ -21,7 +23,6 @@ body {
 
 table {
   margin: 20px 0;
-  font-family: sans-serif;
   font-size: 0.9rem;
   color: var(--dark-text-color);
   border: var(--component-border);
@@ -32,7 +33,7 @@ thead th,
 thead td,
 thead tr {
   font-weight: 400;
-  background: #8a97a0;
+  background: var(--dark-background); 
   color: var(--light-text-color);
 }
 
@@ -41,7 +42,7 @@ tr {
 }
 
 tr:nth-child(even) {
-  background: var(--dark-background);
+  background: var(--medium-background);
 }
 
 th,
@@ -49,7 +50,7 @@ td {
   text-align: left;
   font-weight: 300;
   padding: 4px 10px;
-  min-width: 100px;
+  width: 80px;
 }
 
 td:not(:first-of-type),
@@ -59,8 +60,9 @@ thead td:first-of-type {
 
 td:first-child,
 th:first-child {
-  font-weight: 600;
+  font-weight: var(--bold-font);
   border-right: var(--component-border);
+  width: 100px;
 }
 
 .graph-container {
@@ -97,4 +99,8 @@ th:first-child {
 tr:last-of-type {
   border-top: var(--component-border);
   border-bottom: var(--component-border);
+}
+
+tr:last-of-type td {
+  font-weight: var(--bold-font);
 }
