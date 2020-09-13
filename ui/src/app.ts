@@ -13,7 +13,11 @@ class DataGraph {
   graphOptions: GraphOptionsUI;
   dataService: DataService;
 
-  async init() {
+  constructor() {
+    this.init();
+  }
+
+  private async init() {
     const years = process.env.YEARS.split(",");
     const properties = process.env.PROPERTIES.split(",");
     this.dataService = new DataService(years, properties);
@@ -80,4 +84,3 @@ class DataGraph {
 }
 
 const graph = new DataGraph();
-graph.init();
