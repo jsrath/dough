@@ -1,9 +1,9 @@
 import bodyParser from "body-parser";
 import { config as dotEnvConfig } from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
-import { ConfigService } from "./config-service";
-import { DataService } from "./data-service";
-import { Data } from "./model";
+import { ConfigService } from "./services/config-service";
+import { DataService } from "./services/data-service";
+import { Data } from "./models/api-model";
 import { Routes } from "./routes";
 
 class DataServer {

@@ -1,5 +1,5 @@
 import { Application, Request, Response } from "express";
-import { Category, CategoryType, Data, Total, VisualData } from "../model";
+import { Category, CategoryType, Data, Total, VisualData } from "../models/api-model";
 import * as util from "../util/util";
 
 export class VisualRoutes {

@@ -1,9 +1,16 @@
+import { Application, Request, Response } from "express";
+
 export interface Data {
   [year: string]: Year;
 }
 
 export interface Year {
   [month: string]: Month;
+}
+
+export interface MonthsCategories {
+  months: (keyof Year)[], 
+  categories: (keyof Month)[]  
 }
 
 export interface Month {
@@ -24,7 +31,7 @@ export interface VisualData {
 }
 
 export interface TableData {
-  [property: string]: Array<number | boolean>;
+  [property: string]: (number | boolean)[];
 }
 
 export enum CategoryType {

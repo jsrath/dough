@@ -1,5 +1,5 @@
 import { Application, Request, Response } from "express";
-import { Data, TableData, Year } from "../model";
+import { Data, MonthsCategories, TableData, Year } from "../models/api-model";
 import * as util from "../util/util";
 
 export class TableRoutes {
@@ -12,21 +12,22 @@ export class TableRoutes {
   }
 
   private generateTable(req: Request, res: Response, data: Data) {
-    const { year = util.getCurrentYear() } = req.query;
-    const currentYear = data[year as string];
-    const months = Object.keys(currentYear);
-    const categories = Object.keys(currentYear[months[0]]);
-
-    const formattedData = this.formatDataByCategory(currentYear, months, categories);
+    const currentYear = data[util.processQueryParam(req.query.year, util.getCurrentYear)];
+    const formattedData = this.formatDataByCategory(currentYear, this.extractMonthsAndCategories(currentYear));
     const filtered = this.filterCategories(formattedData);
-
     return res.status(200).json(filtered);
   }
 
-  private formatDataByCategory(currentYear: Year, months: string[], categories: string[]): TableData {
+  private extractMonthsAndCategories(currentYear: Year): MonthsCategories {
+    const months = Object.keys(currentYear);
+    const categories = Object.keys(currentYear[months[0]]);
+    return { months, categories };
+  }
+
+  private formatDataByCategory(currentYear: Year, monthsCategories: MonthsCategories): TableData {
     const allCategories: TableData = {};
-    months.forEach(month => {
-      categories.map(category => {
+    monthsCategories.months.forEach(month => {
+      monthsCategories.categories.map(category => {
         Object.keys(currentYear[month][category])
           .map(entry => {
             const key = `${category}-${entry}`;

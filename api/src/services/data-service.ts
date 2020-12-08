@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { Data } from "./model";
+import { Data } from "../models/api-model";
 
 export class DataService {
 
