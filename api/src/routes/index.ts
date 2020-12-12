@@ -1,27 +1,27 @@
 import { Application } from "express";
-import { Category, CategoryProperty, CategoryType, Data } from "../models/api-model";
+import { Category, CategoryProperty, CategoryType, Data, Year } from "../models/api-model";
 import { TableRoutes } from "./table-routes";
 import { VisualRoutes } from "./visual-routes";
 
 export class Routes {
 
-  constructor(server: Application, data: Data) {
-    this.calculateTotals(data);
-    this.getRoutes(server, data);
+  constructor(server: Application, private data: Data) {
+    this.calculateTotals();
+    this.getRoutes(server, this.data);
   }
 
-  private calculateTotals(data: Data) {
-    const years = Object.keys(data);
+  private calculateTotals() {
+    const years = Object.keys(this.data);
     years.forEach(year => {
-      const months = Object.keys(data[year]);
-      this.getValuesFromMonths(data, months, year);
+      const months = Object.keys(this.data[year]);
+      this.getMonthlyTotals(months, year);
     });
   }
 
-  private getValuesFromMonths(data: Data, months: (keyof Data)[], year: keyof Data) {
+  private getMonthlyTotals(months: (keyof Year)[], year: keyof Data) {
     months.forEach(month => {
       Object.values(CategoryType).forEach(category => {
-        const categoryValues = data[year][month][category];
+        const categoryValues = this.data[year][month][category];
         categoryValues[CategoryProperty.Total] = this.sumValues(categoryValues);
       });
     });

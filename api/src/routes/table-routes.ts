@@ -8,14 +8,14 @@ export class TableRoutes {
   }
 
   private returnRoutes(server: Application, data: Data) {
-    server.get("/table", (req, res) => this.generateTable(req, res, data));
+    server.get("/table", (request, response) => this.generateTable(request, response, data));
   }
 
-  private generateTable(req: Request, res: Response, data: Data) {
-    const currentYear = data[util.processQueryParam(req.query.year, util.getCurrentYear)];
+  private generateTable(request: Request, response: Response, data: Data) {
+    const currentYear = data[util.processQueryParam(request.query.year, util.getCurrentYear)];
     const formattedData = this.formatDataByCategory(currentYear, this.extractMonthsAndCategories(currentYear));
     const filtered = this.filterCategories(formattedData);
-    return res.status(200).json(filtered);
+    return response.status(200).json(filtered);
   }
 
   private extractMonthsAndCategories(currentYear: Year): MonthsCategories {

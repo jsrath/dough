@@ -1,5 +1,3 @@
-import { Application, Request, Response } from "express";
-
 export interface Data {
   [year: string]: Year;
 }

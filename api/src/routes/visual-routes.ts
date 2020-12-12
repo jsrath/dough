@@ -9,25 +9,25 @@ export class VisualRoutes {
   }
 
   private returnRoutes(server: Application, data: Data) {
-    server.get("/visual", (req, res) => this.visualGraph(req, res, data));
-    server.get("/visual/:year", (req, res) => res.status(200).json(data[req.params.year]));
-    server.get("/properties", (req, res) => this.propertiesList(req, res, data));
-    server.get("/years", (req, res) => this.getDataYears(res, data));
+    server.get("/visual", (request, response) => this.visualGraph(request, response, data));
+    server.get("/visual/:year", (request, response) => response.status(200).json(data[request.params.year]));
+    server.get("/properties", (request, response) => this.propertiesList(request, response, data));
+    server.get("/years", (request, response) => this.getDataYears(response, data));
   }
 
-  private visualGraph(req: Request, res: Response, data: Data): Response {
-    const { startYear = util.getCurrentYear(), endYear = startYear, properties } = req.query;
+  private visualGraph(request: Request, response: Response, data: Data): Response {
+    const { startYear = util.getCurrentYear(), endYear = startYear, properties } = request.query;
     const propertiesGroup = (properties as string)?.split(",") ?? [];
     const years = this.filterYearRange(data, startYear as string, endYear as string);
     const yearsRange = this.filterProperties(data, years) as Data;
-    return res.status(200).json(this.filterResponse(yearsRange, propertiesGroup));
+    return response.status(200).json(this.filterResponse(yearsRange, propertiesGroup));
   }
 
-  private propertiesList(req: Request, res: Response, data: Data): Response {
-    const { startYear = util.getCurrentYear(), endYear = startYear, category = CategoryType.Assets } = req.query;
+  private propertiesList(request: Request, response: Response, data: Data): Response {
+    const { startYear = util.getCurrentYear(), endYear = startYear, category = CategoryType.Assets } = request.query;
     const years = this.filterYearRange(data, startYear as string, endYear as string);
     const filteredProperties = this.getAllProperties(data, years, category as CategoryType);
-    return res.status(200).json(filteredProperties);
+    return response.status(200).json(filteredProperties);
   }
 
   private filterResponse(yearsRange: Data, propertiesGroup: string[], category: CategoryType = CategoryType.Assets): VisualData[] {
@@ -57,8 +57,8 @@ export class VisualRoutes {
       .filter(year => Number(year) >= Number(startYear) && Number(year) <= Number(endYear));
   }
 
-  private getDataYears(res: Response, data: Data): Response<string[]> {
+  private getDataYears(response: Response, data: Data): Response<string[]> {
     const years = Object.keys(data);
-    return res.status(200).json(years);
+    return response.status(200).json(years);
   }
 }
