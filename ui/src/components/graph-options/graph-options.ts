@@ -1,5 +1,5 @@
-import { parseCategoryName } from "../util/util";
-import { Attributes, DomElements, DOMElement } from "../models/model";
+import { parseCategoryName } from "../../util/util";
+import { Attributes, DomElements, DOMElement } from "../../models/model";
 
 export class GraphOptionsUI {
   years: string[];

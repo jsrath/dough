@@ -1,0 +1,21 @@
+.line {
+  stroke-width: 2px;
+  fill: none;
+}
+
+.graph-container {
+  display: flex;
+  font-size: 0.8rem;
+  padding: var(--component-padding);
+  margin: 20px;
+  border-radius: var(--component-border-radius);
+}
+
+.graph-container,
+.table-container {
+  background-color: var(--light-background);
+  box-shadow: var(--component-box-shadow);
+  border-radius: var(--component-border-radius);
+  padding: var(--component-padding);
+  margin: 10px;
+}

@@ -1,0 +1,4 @@
+@import "./shared/shared.css";
+@import "../components/graph/graph.css";
+@import "../components/graph-options/graph-options.css";
+@import "../components/table/table.css";

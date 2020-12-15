@@ -1,0 +1,14 @@
+.graph-options-properties fieldset,
+.graph-options-years fieldset {
+  border: var(--component-border);
+  border-width: 1.5px;
+  border-radius: var(--component-border-radius);
+  margin: 10px 0;
+}
+
+.graph-options-properties fieldset {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  white-space: nowrap;
+}

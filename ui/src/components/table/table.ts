@@ -1,5 +1,5 @@
-import { TableData } from '../models/model';
-import { parseCategoryName } from '../util/util';
+import { TableData } from '../../models/model';
+import { parseCategoryName } from '../../util/util';
 
 export class TableUI {
 
