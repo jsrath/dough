@@ -5,17 +5,44 @@
 
 .graph-container {
   display: flex;
+  flex-wrap: wrap;
   font-size: 0.8rem;
   padding: var(--component-padding);
   margin: 20px;
   border-radius: var(--component-border-radius);
+  min-height: 300px;
 }
 
-.graph-container,
-.table-container {
-  background-color: var(--light-background);
-  box-shadow: var(--component-box-shadow);
-  border-radius: var(--component-border-radius);
-  padding: var(--component-padding);
-  margin: 10px;
+.graph {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-width: 450px;
+}
+
+@media screen and (max-width: 768px) {
+  .graph {
+    width: 100%;
+  }
+
+  .graph-options-container {
+    width: 100%;
+  }
+
+  .graph-container .graph-options-container fieldset {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .graph-options-container legend {
+    margin: 0 auto;
+  }
+
+  .graph-options-container span {
+    padding: 0 10px;
+  }
 }

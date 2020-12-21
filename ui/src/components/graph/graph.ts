@@ -21,21 +21,22 @@ export class GraphUI {
 
   initializeSvg() {
     const baseClass = this.config.getBaseClass();
+    const graphElement = document.querySelector(baseClass);
     d3.select(`${baseClass} > svg`).remove();
     this.svg = d3.select(baseClass).append("svg");
-    this.setGraphDimensions();
+    this.setGraphDimensions(graphElement.clientWidth, graphElement.clientHeight);
     this.drawGraph(this.data, this.categoryCount);
   }
 
-  private setGraphDimensions() {
-    this.height = this.config.getHeight();
-    this.width = this.config.getWidth();
+  private setGraphDimensions(width: number, height: number) {
+    this.width = width;
+    this.height = height;
     this.offset = this.config.getOffset();
   }
 
   private drawCanvas(element: SelectionElement): SelectionElement {
-    return element.attr("width", this.config.getWidthPlusMargins())
-      .attr("height", this.config.getHeightPlusMargins())
+    return element.attr("width", this.width)
+      .attr("height", this.height + 30)
       .append("g")
       .attr("transform", `translate(${this.offset})`);
   }
@@ -70,7 +71,7 @@ export class GraphUI {
   }
 
   private drawGraph(data: DataType[], categoryCount: number) {
-    const x = d3.scaleTime().range([0, this.width]);
+    const x = d3.scaleTime().range([0, this.width - 130]);
     const y = d3.scaleLinear().range([this.height, 0]);
     const properties = this.extractProperties(data, categoryCount);
     this.svg = this.drawCanvas(this.svg);

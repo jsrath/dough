@@ -12,8 +12,6 @@ export interface Dimensions {
   right: number;
   bottom: number;
   left: number;
-  baseWidth: number;
-  baseHeight: number;
 }
 
 export enum YearType {

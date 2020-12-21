@@ -31,7 +31,7 @@ export class DataService {
   }
 
  private setDefaultDates(): string[] {
-    return ["2013", this.currentYear];
+    return ["2014", this.currentYear];
   }
 
   async fetchProperties() {

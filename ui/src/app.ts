@@ -7,8 +7,6 @@ import { YearType } from "./models/model";
 
 class DataGraph {
   graphConfig = new GraphConfigService();
-  width = this.graphConfig.getWidth();
-  height = this.graphConfig.getHeight();
   graphUI: GraphUI;
   graphOptions: GraphOptionsUI;
   dataService: DataService;
@@ -34,6 +32,8 @@ class DataGraph {
 
     document.querySelectorAll(".graph-options-properties input")
       .forEach(element => element.addEventListener("input", () => this.onPropertySelect(event)));
+
+    window.addEventListener("resize", () => this.graphUI.initializeSvg());
   }
 
   private initalizeCheckboxes(properties: string[]) {
