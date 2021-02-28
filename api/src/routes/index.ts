@@ -28,7 +28,7 @@ export class Routes {
   }
 
   private sumValues(category: Category): number {
-    return Object.values(category).map(category => +category).reduce((sum, currentValue) => sum + currentValue);
+    return Object.values(category).map(currentCategory => +currentCategory).reduce((sum, currentValue) => sum + currentValue);
   }
 
   private getRoutes(server: Application, data: Data) {

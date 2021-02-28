@@ -1,7 +1,7 @@
 {
-  "name": "financials-ui",
+  "name": "dough-ui",
   "version": "1.0.0",
-  "description": "UI for the Financials App",
+  "description": "UI for the Dough App",
   "main": "src/index.html",
   "scripts": {
     "start": "npm run build --noEmit --watch & npm run compile src/index.html --no-cache",

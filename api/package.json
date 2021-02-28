@@ -1,7 +1,7 @@
 {
-  "name": "financials-api",
+  "name": "dough-api",
   "version": "1.0.0",
-  "description": "Financials API",
+  "description": "Dough API",
   "main": "server.js",
   "author": "jsrath",
   "license": "ISC",

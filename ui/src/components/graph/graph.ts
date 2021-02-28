@@ -82,7 +82,7 @@ export class GraphUI {
         .data([data])
         .attr("class", "line")
         .attr("d", this.setLineData(x, y, property))
-        .style("stroke", d3.schemeTableau10[index]);
+        .style("stroke", d3.schemeSet2[index]);
     });
 
     this.setAxes(x, y);
